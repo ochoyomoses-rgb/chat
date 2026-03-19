@@ -1,0 +1,1 @@
+echo "welcome to our API platform";
