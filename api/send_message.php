@@ -19,10 +19,10 @@ $data = json_decode(file_get_contents("php://input"));
 if(!empty($data->sender_id) && !empty($data->receiver_id) && !empty($data->message)) {
     
     try {
-        // 3. PostgreSQL specific: Use RETURNING to get the new ID and Timestamp instantly
-        $query = 'INSERT INTO "messages" (sender_id, receiver_id, message_text) 
-                  VALUES (?, ?, ?) 
-                  RETURNING id, "timestamp"';
+      // Change the RETURNING line to match your DB column
+$query = 'INSERT INTO "messages" (sender_id, receiver_id, message_text) 
+          VALUES (?, ?, ?) 
+          RETURNING id, created_at';
         
         $stmt = $conn->prepare($query);
         $stmt->execute([$data->sender_id, $data->receiver_id, $data->message]);
