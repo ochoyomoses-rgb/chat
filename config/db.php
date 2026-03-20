@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 $host = "aws-1-eu-west-1.pooler.supabase.com";
 $db_name = "postgres";
 $username = "postgres.eeowuajxpexncnznbbyf";
-$password = "Az568253@"; // ⚠️ put your real password here
+$password = "X_kjqW9i6DXH_X."; // ⚠️ put your real password here
 $port = "5432";
 
 try {
