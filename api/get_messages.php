@@ -16,11 +16,11 @@ if (!$s_id || !$r_id) {
 
 try {
     // 3. Use double quotes for "timestamp" as it is a reserved word in Postgres
-    // Also using FETCH_ASSOC to keep the JSON clean
-    $query = 'SELECT * FROM "messages" 
-              WHERE (sender_id = ? AND receiver_id = ?) 
-              OR (sender_id = ? AND receiver_id = ?) 
-              ORDER BY "timestamp" ASC';
+   // Change the ORDER BY line to match your DB column
+$query = 'SELECT * FROM "messages" 
+          WHERE (sender_id = ? AND receiver_id = ?) 
+          OR (sender_id = ? AND receiver_id = ?) 
+          ORDER BY created_at ASC';
               
     $stmt = $conn->prepare($query);
     $stmt->execute([$s_id, $r_id, $r_id, $s_id]);
