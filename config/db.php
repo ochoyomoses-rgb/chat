@@ -1,23 +1,22 @@
 <?php
-// 1. Set headers for JSON and CORS
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+// ===============================
+// DB CONFIG (SUPABASE POSTGRES)
+// ===============================
 
-// 2. Handle preflight request
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
-
-// 3. Supabase PostgreSQL credentials
+// 1. Connection details (FROM YOUR SUPABASE PROJECT)
 $host = "aws-1-eu-west-1.pooler.supabase.com";
-$db_name = "postgres";
-$username = "postgres.eeowuajxpexncnznbbyf";
-$password = "X_kjqW9i6DXH_X."; // ⚠️ put your real password here
 $port = "5432";
+$db_name = "postgres";
+
+// IMPORTANT: Supabase username format
+$username = "postgres.eeowuajxpexncnznbbyf";
+
+// ⚠️ PUT YOUR REAL PASSWORD HERE
+$password = "X_kjqW9i6DXH_X.";
+
+// ===============================
+// PDO CONNECTION
+// ===============================
 
 try {
     $conn = new PDO(
@@ -26,19 +25,18 @@ try {
         $password
     );
 
+    // Make PDO throw errors properly
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Return associative arrays
     $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    // Test connection (you can remove later)
-    echo json_encode([
-        "status" => "success",
-        "message" => "Connected to Supabase DB"
-    ]);
+} catch (PDOException $e) {
 
-} catch(PDOException $e) {
+    // IMPORTANT: return ONLY ONE clean JSON response
     echo json_encode([
         "status" => "error",
-        "message" => "DB Connection failed: " . $e->getMessage()
+        "message" => "DB Connection failed"
     ]);
     exit;
 }
